@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StoryFlow Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1025;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#141d3b;border-bottom:1px solid #303b60}
+.logo{color:#ffd34e;font-size:23px;font-weight:bold}
+header p{color:#aab5d0;font-size:13px}
+main{max-width:850px;margin:auto;padding:18px}
+.panel{background:#151e3d;border:1px solid #303d64;border-radius:15px;padding:17px;margin-bottom:17px}
+h2{font-size:18px;margin-top:0}
+label{display:block;margin:15px 0 7px;font-size:13px;color:#dce3f7}
+input,textarea,select{width:100%;padding:13px;background:#0d1530;color:white;border:1px solid #39476c;border-radius:9px;font-size:14px}
+textarea{min-height:100px;resize:vertical}
+.styles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.style{padding:14px 8px;background:#202c50;border:1px solid #3b4a70;border-radius:10px;color:white;text-align:left;cursor:pointer}
+.style.active{border:2px solid #ffd34e;background:#35436a}
+.style b{display:block;margin-bottom:5px}
+.style small{color:#b9c6e4}
+button.primary{width:100%;padding:15px;background:#ffd34e;color:#171b2d;border:0;border-radius:10px;font-size:15px;font-weight:bold;margin-top:18px;cursor:pointer}
+.result{display:none;white-space:pre-wrap;line-height:1.6;background:#0c142d;padding:14px;border-radius:10px;font-size:13px;overflow-wrap:anywhere}
+.copy{padding:11px;border:1px solid #ffd34e;background:transparent;color:#ffd34e;border-radius:8px;margin-top:10px}
+footer{text-align:center;color:#8d9aba;padding:20px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🎬 STORYFLOW STUDIO</div>
+<p>AI Animated Video Creator</p>
+</header>
+<main>
+<div class="panel">
+<h2>✨ Create Your Story</h2>
+<label>Judul cerita</label>
+<input id="title" placeholder="Contoh: Misteri Desa Terlarang">
+<label>Masukkan ide cerita</label>
+<textarea id="story" placeholder="Ceritakan ide video yang ingin kamu buat..."></textarea>
+<label>Pilih gaya animasi</label>
+<div class="styles" id="styles">
+<button class="style active" data-style="Flat Vector Science"><b>🪐 Flat Vector</b><small>Animasi edukasi</small></button>
+<button class="style" data-style="Watercolor Wash"><b>🎨 Watercolor</b><small>Lukisan lembut</small></button>
+<button class="style" data-style="Shadow Puppet Theatre"><b>🎭 Shadow Puppet</b><small>Wayang bayangan</small></button>
+<button class="style" data-style="Whiteboard Explainer"><b>✏️ Whiteboard</b><small>Animasi papan tulis</small></button>
+<button class="style" data-style="Psychedelic Poster"><b>🌈 Psychedelic</b><small>Warna artistik</small></button>
+<button class="style" data-style="Tech Glow Explainer"><b>💡 Tech Glow</b><small>Teknologi futuristik</small></button>
+<button class="style" data-style="Paper Craft"><b>📦 Paper Craft</b><small>Kerajinan kertas</small></button>
+<button class="style" data-style="Cinematic Anime"><b>🌸 Anime</b><small>Anime sinematik</small></button>
+</div>
+<label>Format video</label>
+<select id="format">
+<option value="9:16">9:16 - TikTok / Shorts / Reels</option>
+<option value="16:9">16:9 - YouTube</option>
+</select>
+<label>Durasi video</label>
+<select id="duration">
+<option>30 detik</option>
+<option>1 menit</option>
+<option>3 menit</option>
+<option>5 menit</option>
+</select>
+<button class="primary" onclick="generate()">✨ GENERATE STORYBOARD</button>
+</div>
+<div class="panel">
+<h2>📽️ Hasil Storyboard</h2>
+<div id="result" class="result"></div>
+<button id="copy" class="copy" style="display:none" onclick="copyResult()">Salin storyboard</button>
+</div>
+</main>
+<footer>STORYFLOW STUDIO • Your Story, Your World</footer>
+<script>
+let selected="Flat Vector Science";
+document.querySelectorAll(".style").forEach(btn=>{
+btn.onclick=()=>{
+document.querySelectorAll(".style").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+selected=btn.dataset.style;
+};
+});
+function generate(){
+let title=document.getElementById("title").value.trim();
+let story=document.getElementById("story").value.trim();
+if(!title||!story){alert("Isi judul dan ide cerita terlebih dahulu!");return;}
+let format=document.getElementById("format").value;
+let duration=document.getElementById("duration").value;
+let scenes=[
+"OPENING: Perkenalkan lokasi dan suasana cerita.",
+"DEVELOPMENT: Perkenalkan tokoh utama dan masalah.",
+"CONFLICT: Tampilkan kejadian utama yang menarik.",
+"CLIMAX: Hadirkan bagian paling menegangkan.",
+"ENDING: Berikan penyelesaian dan penutup."
+];
+let output="STORYFLOW STUDIO\n\n";
+output+="JUDUL: "+title+"\n";
+output+="CERITA: "+story+"\n";
+output+="STYLE: "+selected+"\n";
+output+="FORMAT: "+format+"\n";
+output+="DURASI: "+duration+"\n\n";
+output+="VISUAL PROMPT:\n";
+output+="Create a beautiful animated video in "+selected+" style. Aspect ratio "+format+". Consistent characters, cinematic composition, smooth animation, professional lighting. Story: "+story+"\n\n";
+output+="STORYBOARD:\n";
+scenes.forEach((s,i)=>output+="SCENE "+(i+1)+"\n"+s+"\nVisual: "+story+"\nNarration: Buat narasi bahasa Indonesia sesuai adegan.\n\n");
+output+="VOICE OVER: Gunakan suara narator bahasa Indonesia yang jelas dan ekspresif.\n";
+output+="MUSIC: Musik latar sesuai suasana cerita.\n";
+output+="CTA: Jangan lupa like, subscribe, dan ikuti cerita selanjutnya!";
+document.getElementById("result").textContent=output;
+document.getElementById("result").style.display="block";
+document.getElementById("copy").style.display="inline-block";
+}
+function copyResult(){
+let t=document.getElementById("result").textContent;
+if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>alert("Storyboard berhasil disalin!")).catch(()=>alert(t));}
+else alert(t);
+}
+</script>
+</body>
+</html>
