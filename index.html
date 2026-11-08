@@ -147,7 +147,15 @@ function generate(){
  <p>${escapeHTML(s.part)}</p>
  <label>Prompt gambar</label>
  <textarea id="img${s.number}">${escapeHTML(s.visual)}</textarea>
- <button onclick="copyText('img${s.number}')">Salin Prompt Gambar</button>
+ <button onclick="copyText('img${s.number}')">
+Salin Prompt Gambar
+</button>
+
+<button onclick="generateSceneImage(${s.number})">
+🖼️ Tampilkan Preview Gambar
+</button>
+
+<div id="imagePreview${s.number}" style="margin-top:12px;"></div>
  <label>Prompt video / motion</label>
  <textarea id="vid${s.number}">${escapeHTML(s.video)}</textarea>
  <button onclick="copyText('vid${s.number}')">Salin Prompt Video</button>
@@ -216,6 +224,48 @@ document.getElementById("files").addEventListener("change",function(){
  document.getElementById("assetList").textContent=
  [...this.files].map(f=>"✓ "+f.name).join("\n");
 });
+
+// STORYFLOW STUDIO V4 - IMAGE MODULE
+
+function generateSceneImage(index) {
+  const promptField = document.getElementById("img" + index);
+  const preview = document.getElementById("imagePreview" + index);
+
+  if (!promptField || !preview) {
+    alert("Adegan belum memiliki prompt gambar.");
+    return;
+  }
+
+  const prompt = promptField.value.trim();
+
+  if (!prompt) {
+    alert("Prompt gambar masih kosong.");
+    return;
+  }
+
+  preview.innerHTML = `
+    <div style="
+      padding:15px;
+      border:1px dashed #888;
+      border-radius:10px;
+      text-align:center;
+    ">
+      <strong>Prompt gambar siap</strong>
+      <p>${escapeImageText(prompt)}</p>
+      <small>Mesin gambar belum tersambung.</small>
+    </div>
+  `;
+}
+
+function escapeImageText(value) {
+  return value.replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
 </script>
 </body>
 </html>
