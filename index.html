@@ -161,23 +161,18 @@ Salin Prompt Gambar
  <button onclick="copyText('vid${s.number}')">Salin Prompt Video</button>
  </div>`;
  });
- document.getElementById("prompts").innerHTML =
-  `<button onclick="generateAllImages()"
-  style="padding:12px 18px;border-radius:10px;
-  cursor:pointer;font-weight:bold;">
-  🖼️ GENERATE SEMUA GAMBAR
-  </button>
-  <p>${count} adegan siap dibuat.</p>`;
  document.getElementById("hasil").innerHTML=html;
- document.getElementById("prompts").innerHTML =
+
+document.getElementById("prompts").innerHTML =
  `<button onclick="generateAllImages()"
  style="padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:bold;">
  🖼️ GENERATE SEMUA GAMBAR
  </button>
  <p>${count} adegan siap dibuat.</p>`;
- document.getElementById("voice").value=parts.join("\n\n");
- document.getElementById("status").textContent="✓ Storyboard berhasil dibuat!";
- subtitle=makeSubtitleText();
+
+document.getElementById("voice").value=parts.join("\n\n");
+document.getElementById("status").textContent="✓ Storyboard berhasil dibuat!";
+subtitle=makeSubtitleText();
 }
 
 function escapeHTML(s){
