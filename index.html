@@ -1,108 +1,221 @@
+
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>StoryFlow Studio v2.1 - FIX</title>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StoryFlow Studio V3</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial;background:#0A0F2A;color:#fff}
-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;background:#0B1230;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;font-size:22px}.logo span{color:#FACC15}
-.wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px;max-width:1200px;margin:auto}
-@media(max-width:850px){.wrap{grid-template-columns:1fr}}
-.card{background:#131A3F;border:1px solid #2A3566;border-radius:16px;padding:16px}
-input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px solid #2A3566;background:#0A0F2A;color:#fff;margin:6px 0 12px}
-label{font-weight:700;font-size:13px}
-button{cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:800}
-.btn-yellow{background:#FACC15;color:#111;width:100%;padding:14px;font-size:16px}
-.btn-dark{background:#1E2A5A;color:#fff}
-.btn-small{padding:8px 10px;font-size:13px}
-.styles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.style{padding:10px;border-radius:10px;background:#0A0F2A;border:2px solid #2A3566;cursor:pointer;text-align:left;color:#fff}
-.style.active{border-color:#FACC15;background:#2A2200}
-.scene{border:1px solid #2A3566;border-radius:12px;padding:10px;margin:8px 0;background:#0A0F2A}
-.scene-img{height:150px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:64px;transition:all .5s}
-.preview{height:380px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;transition:all .6s;position:relative;overflow:hidden}
-.preview h2{margin:8px 0}.badge{background:#FACC15;color:#111;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
-.progress{height:8px;background:#ffffff33;border-radius:20px;width:100%;margin-top:12px;overflow:hidden}.bar{height:100%;background:#FACC15;width:0%}
-.row{display:flex;gap:8px;flex-wrap:wrap}.row button{flex:1}
-small{color:#9AA4D0}
-#status{background:#022c22;border:1px solid #10b981;padding:10px;border-radius:10px;margin-top:10px;display:none}
-</style></head>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#f1f5f9;font-family:Arial,sans-serif}
+header{padding:22px;background:#121a30;border-bottom:1px solid #26334d}
+h1{margin:0;color:#7dd3fc;font-size:25px}
+header p{color:#94a3b8;margin-bottom:0}
+main{max-width:1000px;margin:auto;padding:20px}
+.card{background:#141e33;border:1px solid #293752;border-radius:14px;padding:18px;margin-bottom:18px}
+h2{font-size:18px;margin-top:0;color:#7dd3fc}
+label{display:block;margin:12px 0 6px;color:#cbd5e1}
+input,textarea,select{width:100%;padding:12px;border-radius:8px;border:1px solid #3b4b67;background:#0b1427;color:white;font-size:14px}
+textarea{min-height:110px;resize:vertical}
+button{border:0;border-radius:8px;padding:12px 16px;background:#0284c7;color:white;font-weight:bold;cursor:pointer;margin:5px 3px 5px 0}
+button:hover{background:#0369a1}
+.secondary{background:#334155}
+.scene{background:#0c162a;border:1px solid #334155;border-radius:10px;padding:15px;margin-top:12px}
+.scene h3{color:#7dd3fc;margin-top:0}
+.scene textarea{min-height:90px;margin-bottom:8px}
+.small{color:#94a3b8;font-size:12px}
+#status{color:#86efac;margin:10px 0}
+footer{text-align:center;color:#64748b;padding:25px}
+</style>
+</head>
 <body>
-<header><div class="logo">S <span>STORYFLOW STUDIO</span> <small>v2.1 FIX • Semua Tombol Jalan</small></div><button class="btn-dark" onclick="contohCepat()">⚡ Contoh Cepat</button></header>
-<div class="wrap">
-<div>
-<div class="card"><h2>1. CREATE YOUR STORY</h2>
-<label>Judul Cerita</label><input id="judul" value="Misteri Desa Terlarang">
-<label>Masukkan Ide Cerita</label><textarea id="ide" rows="4">Seorang anak menemukan peta tua di loteng rumah kakeknya. Peta itu menunjuk ke sebuah desa yang tidak ada di peta mana pun. Bersama sahabatnya, ia berangkat sebelum fajar. Di desa itu, semua jam berhenti pada pukul 03.03.</textarea>
-<label>Pilih Gaya Animasi</label><div class="styles" id="styles"></div>
-<label>Format Video</label><select id="format"><option>9:16 - TikTok / Shorts / Reels</option><option>16:9 - YouTube</option><option>1:1 - Feed</option></select>
-<label>Durasi Video</label><select id="durasi"><option value="60">60 detik</option><option value="30">30 detik</option><option value="90">90 detik</option></select>
-<div id="status">✅ Berhasil! Scene sudah dibuat. Scroll ke bawah untuk lihat hasilnya.</div>
-<button class="btn-yellow" onclick="generateStoryboard()">✨ GENERATE STORYBOARD + GAMBAR</button>
-<p><small>Klik tombol kuning ini dulu, baru tombol lain di bawah bisa jalan.</small></p>
-<label>--- FITUR GENERATE ---</label>
-<div class="row"><button class="btn-dark" onclick="generateGambar()">🎨 Generate Gambar Ulang</button><button class="btn-dark" onclick="generateVideo()">🎬 Generate Video Otomatis</button></div>
-<label style="margin-top:12px;display:block">--- TTS / VOICE OVER ---</label>
-<label>Naskah Narasi (otomatis dari ide)</label><textarea id="naskah" rows="3">Seorang anak menemukan peta tua di loteng rumah kakeknya...</textarea>
-<div class="row"><select id="suara"><option value="id-ID">Indonesia - Perempuan</option><option value="id-ID">Indonesia - Laki-laki</option><option value="en-US">English</option></select><select id="kecepatan"><option value="0.8">0.8x Lambat</option><option value="1" selected>1x Normal</option><option value="1.25">1.25x Cepat</option></select></div>
-<div class="row" style="margin-top:8px"><button class="btn-dark" onclick="dengarkan()">🔊 Dengarkan Suara (TTS)</button><button class="btn-dark" onclick="generateTTS()">🎙️ Generate TTS Semua Scene</button></div>
-</div>
-<div class="card"><h3>2. EDITING & TRANSISI</h3>
-<label>Transisi Scene Aktif</label><select id="transisi" onchange="ubahTransisi()"><option value="fade">Fade</option><option value="slide">Slide Kiri</option><option value="zoom">Zoom In</option><option value="blur">Blur</option><option value="putar">Putar</option></select>
-<label>Efek</label><select id="efek" onchange="ubahEfek()"><option value="none">Tanpa Efek</option><option value="vignette">Vignette</option><option value="neon">Neon Glow</option><option value="grain">Film Grain</option></select>
-<label>Musik Latar</label><select id="musik"><option>Tanpa Musik</option><option>Lo-fi Santai</option><option>Epic Dramatis</option><option>Ceria</option><option>Misteri</option></select>
-<label>--- EXPORT ---</label>
-<div class="row"><button class="btn-yellow" onclick="exportVideo()">📤 Export Video</button><button class="btn-dark" onclick="exportNaskah()">📄 Export Naskah</button><button class="btn-dark" onclick="exportGambar()">🖼️ Export Gambar</button></div>
-<p><small>Export Video akan download file .webm hasil rekaman preview. Export Naskah download .txt. Export Gambar download gambar scene aktif.</small></p>
-</div>
-</div>
-<div>
-<div class="card"><h2>📺 EDITOR & PREVIEW</h2><div id="preview" class="preview" style="background:linear-gradient(180deg,#2563EB,#7C3AED)"><span class="badge" id="badgeScene">Scene 1 dari 4</span><div id="emojiBig" style="font-size:90px">⭐</div><h2 id="judulPreview">Misteri Desa Terlarang</h2><p id="teksPreview">Klik GENERATE STORYBOARD dulu untuk mulai.</p><div class="progress"><div class="bar" id="bar"></div></div><p id="timer">0s / 60s • <span id="labelTransisi">Transisi: Fade</span></p></div>
-<div class="row" style="margin-top:10px"><button class="btn-yellow" onclick="playVideo()">▶️ Play Video</button><button class="btn-dark" onclick="stopVideo()">⏹️ Stop</button><button class="btn-dark" onclick="sceneSebelumnya()">⬅️ Prev</button><button class="btn-dark" onclick="sceneBerikutnya()">Next ➡️</button></div>
-<h3>Timeline Scene (<span id="jmlScene">0</span> Scene)</h3><div id="listScene"><p><small>Belum ada scene. Klik GENERATE STORYBOARD.</small></p></div>
-</div>
-</div>
-</div>
+<header>
+<h1>🎬 STORYFLOW STUDIO V3</h1>
+<p>AI Storyboard • Image Prompts • Video Prompts • Auto Editor</p>
+</header>
+<main>
+<section class="card">
+<h2>01. Buat Cerita</h2>
+<label>Judul video</label>
+<input id="judul" placeholder="Contoh: Perjalanan Soekarno menjadi presiden">
+<label>Masukkan cerita</label>
+<textarea id="cerita" placeholder="Tuliskan cerita lengkap yang ingin dijadikan video..."></textarea>
+<label>Gaya visual</label>
+<select id="style">
+<option>Cinematic Anime</option>
+<option>Realistic Cinematic</option>
+<option>3D Animation</option>
+<option>Fantasy Cinematic</option>
+<option>Documentary Cinematic</option>
+</select>
+<label>Format video</label>
+<select id="format">
+<option value="9:16">Vertikal 9:16 - TikTok / Reels / Shorts</option>
+<option value="16:9">Horizontal 16:9 - YouTube</option>
+</select>
+<label>Durasi video</label>
+<select id="durasi">
+<option value="30">30 detik</option>
+<option value="60">1 menit</option>
+<option value="120">2 menit</option>
+<option value="180">3 menit</option>
+<option value="300">5 menit</option>
+</select>
+<label>Jumlah adegan</label>
+<select id="jumlah">
+<option value="4">4 adegan</option>
+<option value="5" selected>5 adegan</option>
+<option value="6">6 adegan</option>
+<option value="8">8 adegan</option>
+<option value="10">10 adegan</option>
+</select>
+<button onclick="generate()">✨ GENERATE STORYBOARD</button>
+<div id="status"></div>
+</section>
+
+<section class="card">
+<h2>02. Hasil Storyboard</h2>
+<div id="hasil" class="small">Storyboard akan muncul di sini setelah kamu membuat cerita.</div>
+<button class="secondary" onclick="downloadPackage()">⬇ Download Paket Produksi</button>
+<button class="secondary" onclick="makeSRT()">Buat Subtitle SRT</button>
+</section>
+
+<section class="card">
+<h2>03. Generator Prompt Gambar & Video</h2>
+<p class="small">Salin prompt gambar untuk generator gambar yang tersedia. Prompt video dapat disiapkan untuk alur produksi video yang didukung.</p>
+<div id="prompts" class="small">Belum ada prompt.</div>
+</section>
+
+<section class="card">
+<h2>04. Auto Editor – Persiapan Editing</h2>
+<label>Voice-over bahasa Indonesia</label>
+<textarea id="voice" placeholder="Naskah narasi akan muncul di sini..."></textarea>
+<button onclick="copyText('voice')">Salin Voice-over</button>
+<label>Catatan editing</label>
+<textarea id="editing" readonly>1. Susun klip sesuai urutan adegan.
+2. Gunakan transisi halus antar adegan.
+3. Tambahkan voice-over.
+4. Tambahkan musik latar bebas lisensi.
+5. Masukkan subtitle SRT.
+6. Ekspor sesuai rasio yang dipilih.</textarea>
+<button class="secondary" onclick="copyText('editing')">Salin Panduan Editing</button>
+</section>
+
+<section class="card">
+<h2>05. Aset Gambar</h2>
+<p class="small">Pilih gambar hasil generate untuk mengumpulkan aset proyek.</p>
+<input type="file" id="files" accept="image/*" multiple>
+<div id="assetList" class="small"></div>
+</section>
+</main>
+<footer>STORYFLOW STUDIO V3 • Creative Video Production</footer>
+
 <script>
-let gayaAktif='Anime'; let scenes=[]; let idx=0; let timerInt=null; let detik=0;
-const GAYAS=[['Flat Vector','🎨'],['Watercolor','🖌️'],['Shadow Puppet','🎭'],['Whiteboard','✏️'],['Psychedelic','🌈'],['Tech Glow','🤖'],['Paper Craft','📄'],['Anime','✨']];
-const EMOJIS=['⭐','🗺️','🌅','🏚️','⏰','👻'];
-function renderGaya(){document.getElementById('styles').innerHTML=GAYAS.map(g=>`<button class="style ${g[0]===gayaAktif?'active':''}" onclick="pilihGaya('${g[0]}')">${g[1]}<br><b>${g[0]}</b></button>`).join('')}
-function pilihGaya(g){gayaAktif=g;renderGaya()}
-renderGaya();
-function contohCepat(){document.getElementById('judul').value='Misteri Desa Terlarang';generateStoryboard()}
-function buatScenes(){
-  const judul=document.getElementById('judul').value||'Cerita Baru';
-  const ide=document.getElementById('ide').value||'Sebuah petualangan seru dimulai.';
-  const parts=ide.split('.').filter(s=>s.trim().length>5);
-  const judulScene=['Pembuka','Petualangan Dimulai','Konflik / Misteri','Penutup'];
-  scenes=[];
-  for(let i=0;i<4;i++){scenes.push({judul:judulScene[i],teks:(parts[i]||parts[0]||ide).trim()+'.',emoji:EMOJIS[i%EMOJIS.length],gaya:gayaAktif})}
-  document.getElementById('naskah').value=ide;
-  return judul;
+let scenes=[];
+let subtitle="";
+
+function splitStory(text,count){
+ let parts=text.split(/(?<=[.!?])\s+/).filter(x=>x.trim());
+ if(parts.length===0)return Array(count).fill(text);
+ let result=Array.from({length:count},()=>[]);
+ parts.forEach((p,i)=>result[Math.floor(i*count/parts.length)].push(p));
+ return result.map((a,i)=>a.join(" ") || "Lanjutkan peristiwa dari adegan sebelumnya.");
 }
-function renderScene(){
-  const list=document.getElementById('listScene'); document.getElementById('jmlScene').innerText=scenes.length;
-  list.innerHTML=scenes.map((s,i)=>`<div class="scene"><b>Scene ${i+1} - ${s.judul} ${i===idx?'⭐ AKTIF':''}</b><div class="scene-img" style="background:linear-gradient(135deg,#2563EB,#7C3AED)">${s.emoji}</div><p>${s.teks}</p><p><small>Gaya: ${s.gaya} • Prompt: ${s.gaya}, ${s.judul.toLowerCase()} untuk cerita "${document.getElementById('judul').value}"</small></p><div class="row"><button class="btn-small btn-dark" onclick="pilihScene(${i})">Tampilkan</button><button class="btn-small btn-dark" onclick="regenerateSatu(${i})">🔄 Regenerate Gambar</button><button class="btn-small btn-dark" onclick="hapusScene(${i})">🗑️ Hapus</button></div></div>`).join('');
-  if(scenes[idx]){document.getElementById('badgeScene').innerText=`Scene ${idx+1} dari ${scenes.length}`;document.getElementById('emojiBig').innerText=scenes[idx].emoji;document.getElementById('judulPreview').innerText=document.getElementById('judul').value;document.getElementById('teksPreview').innerText=scenes[idx].teks;}
+
+function generate(){
+ const title=document.getElementById("judul").value.trim();
+ const story=document.getElementById("cerita").value.trim();
+ const style=document.getElementById("style").value;
+ const ratio=document.getElementById("format").value;
+ const duration=Number(document.getElementById("durasi").value);
+ const count=Number(document.getElementById("jumlah").value);
+ if(!title||!story){
+ alert("Isi judul dan cerita terlebih dahulu.");
+ return;
+ }
+ const parts=splitStory(story,count);
+ const seconds=duration/count;
+ scenes=parts.map((part,i)=>{
+ const visual=`${style}, ${ratio} aspect ratio, scene ${i+1} of ${count}, ${part}, cinematic composition, detailed environment, dramatic lighting, consistent character design, high quality`;
+ const video=`Animate this scene naturally: ${part}. Add subtle character movement, environmental motion, cinematic camera movement, smooth animation, maintain character consistency.`;
+ return {number:i+1,part,visual,video,seconds};
+ });
+ let html="";
+ scenes.forEach(s=>{
+ html+=`<div class="scene">
+ <h3>🎞 ADEGAN ${s.number} • ${s.seconds.toFixed(1)} detik</h3>
+ <p>${escapeHTML(s.part)}</p>
+ <label>Prompt gambar</label>
+ <textarea id="img${s.number}">${escapeHTML(s.visual)}</textarea>
+ <button onclick="copyText('img${s.number}')">Salin Prompt Gambar</button>
+ <label>Prompt video / motion</label>
+ <textarea id="vid${s.number}">${escapeHTML(s.video)}</textarea>
+ <button onclick="copyText('vid${s.number}')">Salin Prompt Video</button>
+ </div>`;
+ });
+ document.getElementById("hasil").innerHTML=html;
+ document.getElementById("prompts").innerHTML=`${count} adegan berhasil disiapkan. Salin prompt satu per satu untuk digunakan pada layanan gambar dan video yang tersedia.`;
+ document.getElementById("voice").value=parts.join("\n\n");
+ document.getElementById("status").textContent="✓ Storyboard berhasil dibuat!";
+ subtitle=makeSubtitleText();
 }
-function generateStoryboard(){buatScenes();idx=0;renderScene();document.getElementById('status').style.display='block';document.getElementById('status').innerText='✅ Berhasil! '+scenes.length+' scene dibuat dengan gaya '+gayaAktif+'. Sekarang klik Play Video / Generate Video.';alert('✅ Berhasil! '+scenes.length+' Scene + Gambar berhasil dibuat!');}
-function generateGambar(){if(!scenes.length){alert('Klik GENERATE STORYBOARD dulu ya!');return;} scenes=scenes.map((s,i)=>({...s,emoji:EMOJIS[(i+Math.floor(Math.random()*3))%EMOJIS.length]}));renderScene();alert('🎨 Gambar berhasil di-generate ulang!')}
-function generateVideo(){if(!scenes.length){alert('Klik GENERATE STORYBOARD dulu!');return;} playVideo();alert('🎬 Video otomatis dibuat! Video sedang diputar di preview.');}
-function pilihScene(i){idx=i;renderScene()}
-function regenerateSatu(i){scenes[i].emoji=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];renderScene()}
-function hapusScene(i){scenes.splice(i,1);if(idx>=scenes.length)idx=0;renderScene()}
-function sceneBerikutnya(){if(!scenes.length)return;idx=(idx+1)%scenes.length;renderScene();terapkanTransisi()}
-function sceneSebelumnya(){if(!scenes.length)return;idx=(idx-1+scenes.length)%scenes.length;renderScene();terapkanTransisi()}
-function terapkanTransisi(){let p=document.getElementById('preview');let t=document.getElementById('transisi').value;p.style.transform='scale(0.95)';p.style.opacity='0.3';setTimeout(()=>{p.style.transform='scale(1)';p.style.opacity='1';if(t==='putar')p.style.transform='rotate(360deg)';if(t==='zoom')p.style.transform='scale(1.05)';},150)}
-function ubahTransisi(){document.getElementById('labelTransisi').innerText='Transisi: '+document.getElementById('transisi').value;terapkanTransisi()}
-function ubahEfek(){let p=document.getElementById('preview');let e=document.getElementById('efek').value;p.style.boxShadow=e==='neon'?'0 0 40px #FACC15':'none';p.style.filter=e==='vignette'?'brightness(0.85)':e==='grain'?'contrast(1.2)':'none';}
-function playVideo(){if(!scenes.length){alert('Klik GENERATE STORYBOARD dulu!');return;} stopVideo();detik=0;let total=parseInt(document.getElementById('durasi').value);timerInt=setInterval(()=>{detik++;let pct=Math.min(100,detik/total*100);document.getElementById('bar').style.width=pct+'%';document.getElementById('timer').innerText=detik+'s / '+total+'s • Transisi: '+document.getElementById('transisi').value;if(detik%(total/4||15)===0){idx=(idx+1)%scenes.length;renderScene();terapkanTransisi()} if(detik>=total){stopVideo();alert('✅ Video selesai!');}},1000)}
-function stopVideo(){if(timerInt)clearInterval(timerInt);timerInt=null}
-function dengarkan(){let teks=document.getElementById('naskah').value;if(!('speechSynthesis' in window)){alert('Browser kamu tidak support TTS. Coba Chrome.');return;}let u=new SpeechSynthesisUtterance(teks);u.lang=document.getElementById('suara').value;u.rate=parseFloat(document.getElementById('kecepatan').value);speechSynthesis.cancel();speechSynthesis.speak(u);alert('🔊 TTS diputar! Pastikan volume HP/laptop nyala.')}
-function generateTTS(){if(!scenes.length){alert('Klik GENERATE STORYBOARD dulu!');return;} document.getElementById('naskah').value=scenes.map(s=>s.teks).join(' ');dengarkan()}
-function exportNaskah(){let blob=new Blob([document.getElementById('judul').value+'\n\n'+document.getElementById('naskah').value],{type:'text/plain'});downloadBlob(blob,'naskah-storyflow.txt')}
-function exportGambar(){if(!scenes.length){alert('Generate dulu!');return;}let c=document.createElement('canvas');c.width=720;c.height=1280;let ctx=c.getContext('2d');let g=ctx.createLinearGradient(0,0,0,1280);g.addColorStop(0,'#2563EB');g.addColorStop(1,'#7C3AED');ctx.fillStyle=g;ctx.fillRect(0,0,720,1280);ctx.fillStyle='#fff';ctx.font='bold 60px Arial';ctx.textAlign='center';ctx.fillText(scenes[idx].emoji,360,600);ctx.font='bold 36px Arial';ctx.fillText(document.getElementById('judul').value,360,700);let a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='scene-'+(idx+1)+'.png';a.click();alert('🖼️ Gambar scene berhasil di-download!')}
-function exportVideo(){alert('📤 Export Video: Video akan direkam dari preview selama 10 detik. Klik Play dulu, lalu klik Export lagi untuk download. Fitur ini pakai MediaRecorder di browser.');}
-function downloadBlob(blob,name){let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click()}
-buatScenes();renderScene();
-</script></body></html>
+
+function escapeHTML(s){
+ return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function copyText(id){
+ const el=document.getElementById(id);
+ el.select();
+ navigator.clipboard.writeText(el.value).then(()=>alert("Berhasil disalin!")).catch(()=>alert("Tekan Ctrl+C untuk menyalin."));
+}
+
+function makeSubtitleText(){
+ let current=0,output="";
+ scenes.forEach((s,i)=>{
+ let start=current;
+ current+=s.seconds;
+ output+=(i+1)+"\n"+timeCode(start)+" --> "+timeCode(current)+"\n"+s.part+"\n\n";
+ });
+ return output;
+}
+function timeCode(seconds){
+ let ms=Math.round((seconds%1)*1000);
+ let total=Math.floor(seconds);
+ let h=String(Math.floor(total/3600)).padStart(2,"0");
+ let m=String(Math.floor(total%3600/60)).padStart(2,"0");
+ let s=String(total%60).padStart(2,"0");
+ return `${h}:${m}:${s},${String(ms).padStart(3,"0")}`;
+}
+function makeSRT(){
+ if(!scenes.length){alert("Buat storyboard dahulu.");return;}
+ const blob=new Blob([makeSubtitleText()],{type:"text/plain;charset=utf-8"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="storyflow-subtitle.srt";
+ a.click();
+ URL.revokeObjectURL(a.href);
+}
+function downloadPackage(){
+ if(!scenes.length){alert("Buat storyboard dahulu.");return;}
+ let text="STORYFLOW STUDIO - PAKET PRODUKSI\n\n";
+ text+="JUDUL: "+document.getElementById("judul").value+"\n";
+ text+="FORMAT: "+document.getElementById("format").value+"\n\n";
+ scenes.forEach(s=>{
+ text+=`ADEGAN ${s.number}\nCERITA: ${s.part}\nPROMPT GAMBAR: ${s.visual}\nPROMPT VIDEO: ${s.video}\n\n`;
+ });
+ text+="VOICE OVER:\n"+document.getElementById("voice").value;
+ const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="StoryFlow-Paket-Produksi.txt";
+ a.click();
+ URL.revokeObjectURL(a.href);
+}
+document.getElementById("files").addEventListener("change",function(){
+ document.getElementById("assetList").textContent=
+ [...this.files].map(f=>"✓ "+f.name).join("\n");
+});
+</script>
+</body>
+</html>
